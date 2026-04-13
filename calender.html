@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar - Study Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="index.html"><span class="badge bg-primary me-2">📚</span>Study Planner</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tasks.html">✓ Tasks</a></li>
+                    <li class="nav-item"><a class="nav-link" href="subjects.html">📖 Subjects</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="calender.html">📅 Calendar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="exams.html">📝 Exams</a></li>
+                    <li class="nav-item"><a class="nav-link" href="analytics.html">📈 Analytics</a></li>
+                    <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+                    <li class="nav-item ms-3">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="userDropdown">
+                                👤 <span id="userName">User</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="settings.html">My Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="logoutUser()">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-5">
+        <div class="container">
+            <h1 class="mb-5">Monthly Study Calendar</h1>
+
+            <div class="row g-4">
+                <div class="col-lg-9">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <button class="btn btn-sm btn-outline-secondary" onclick="prevMonth()">← Prev</button>
+                                <h5 class="mb-0" id="monthDisplay">April 2026</h5>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="nextMonth()">Next →</button>
+                            </div>
+
+                            <!-- Calendar Grid -->
+                            <div class="table-responsive">
+                                <table class="table table-dark table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th>Sun</th>
+                                            <th>Mon</th>
+                                            <th>Tue</th>
+                                            <th>Wed</th>
+                                            <th>Thu</th>
+                                            <th>Fri</th>
+                                            <th>Sat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="calendarGrid"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body">
+                            <h6 class="card-title mb-4" id="selectedDateDisplay">Select a day</h6>
+                            <div id="dayDetails" class="small">
+                                <p class="text-muted">Click on a day to view details</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Footer Column 1 - About -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h5 class="footer-title">📚 Study Planner</h5>
+                            <p class="footer-desc">Master your productivity with intelligent study planning and tracking tools.</p>
+                            <div class="footer-stars">
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Column 2 - Quick Links -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h5 class="footer-title">Quick Links</h5>
+                            <ul class="footer-links">
+                                <li><a href="index.html">📊 Dashboard</a></li>
+                                <li><a href="tasks.html">✓ Tasks</a></li>
+                                <li><a href="exams.html">📝 Exams</a></li>
+                                <li><a href="analytics.html">📈 Analytics</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Footer Column 3 - Features -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h5 class="footer-title">Features</h5>
+                            <ul class="footer-links">
+                                <li><a href="settings.html">⚙️ Settings</a></li>
+                                <li><a href="subjects.html">📖 Subjects</a></li>
+                                <li><a href="calender.html">📅 Calendar</a></li>
+                                <li><a href="#" onclick="logoutUser()">🚪 Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Footer Column 4 - Stats -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h5 class="footer-title">Keep Learning</h5>
+                            <p class="footer-desc">Every day brings new opportunities to grow and improve.</p>
+                            <div class="footer-badges">
+                                <span class="badge-item">🎯 Goal-Oriented</span>
+                                <span class="badge-item">📊 Data-Driven</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <div class="footer-divider"></div>
+                    <div class="row align-items-center">
+                        <div class="col-md-6 text-center text-md-start">
+                            <p class="footer-credit">
+                                <span class="designer-text">Design BY</span> 
+                                <span class="heart-beat">❤</span> 
+                                <span class="designer-name">karunendra</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <p class="footer-year">© <span id="current-year">2026</span> Study Planner. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animated Background Elements -->
+        <div class="footer-bg-animation">
+            <div class="float-element">✨</div>
+            <div class="float-element">📚</div>
+            <div class="float-element">💡</div>
+            <div class="float-element">🎯</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/calender.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Check authentication on page load
+        function checkAuth() {
+            const currentUser = JSON.parse(localStorage.getItem('studyPlannerCurrentUser')) || null;
+            if (!currentUser) {
+                window.location.href = 'singup.html';
+                return;
+            }
+            displayUserInfo(currentUser);
+        }
+
+        // Display user info
+        function displayUserInfo(user) {
+            const userNameElement = document.getElementById('userName');
+            if (userNameElement && user) {
+                const firstName = user.name.split(' ')[0];
+                userNameElement.textContent = firstName;
+            }
+        }
+
+        // Logout user
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('studyPlannerCurrentUser');
+                localStorage.removeItem('rememberMeEmail');
+                window.location.href = 'singup.html';
+            }
+        }
+
+        // Check auth on page load
+        document.addEventListener('DOMContentLoaded', checkAuth);
+    </script>
+</body>
+</html>

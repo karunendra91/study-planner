@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Planner - Authentication</title>
+
+<style>
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f142a 0%, #1a1f35 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 20px;
+}
+
+.container-main {
+  width: 100%;
+  max-width: 1000px;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 15px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+/* Left Section */
+.left-content {
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(10, 14, 39, 0.8) 0%, rgba(15, 20, 37, 0.9) 100%);
+  border-right: 1px solid rgba(56, 189, 248, 0.1);
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+}
+
+.logo-text h1 {
+  font-size: 32px;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.logo-text p {
+  font-size: 14px;
+  color: #a0aec0;
+  font-weight: 500;
+}
+
+/* Features List */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 50px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  animation: slideIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.feature-item:nth-child(1) { animation-delay: 0.1s; }
+.feature-item:nth-child(2) { animation-delay: 0.2s; }
+.feature-item:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.feature-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 2px solid #38bdf8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.feature-text h3 {
+  font-size: 16px;
+  margin-bottom: 3px;
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+.feature-text p {
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+/* Right Section - Forms */
+.right-content {
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  width: 100%;
+}
+
+.form-header h2 {
+  font-size: 28px;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.form-header p {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form.hidden {
+  display: none;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  border-radius: 8px;
+  background: rgba(51, 65, 85, 0.3);
+  color: #e2e8f0;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder {
+  color: #64748b;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: #38bdf8;
+  background: rgba(51, 65, 85, 0.5);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 36px;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.password-toggle:hover {
+  color: #38bdf8;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 13px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.remember-me input[type="checkbox"] {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.form-options a {
+  color: #38bdf8;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.form-options a:hover {
+  color: #0ea5e9;
+  text-decoration: underline;
+}
+
+.submit-btn {
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.form-footer a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-footer a:hover {
+  color: #0ea5e9;
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container-main {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .left-content {
+    padding: 40px 20px;
+    border-right: none;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+  }
+
+  .right-content {
+    padding: 40px 20px;
+  }
+
+  .logo-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 35px;
+  }
+
+  .logo-text h1 {
+    font-size: 28px;
+  }
+
+  .form-header h2 {
+    font-size: 24px;
+  }
+
+  .features-list {
+    gap: 20px;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-main {
+    border-radius: 10px;
+    flex-direction: column;
+  }
+
+  .left-content {
+    padding: 25px 15px;
+    display: flex;
+    border-right: none;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+    flex: none;
+  }
+
+  .logo-section {
+    margin-bottom: 20px;
+  }
+
+  .logo-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 28px;
+  }
+
+  .logo-text h1 {
+    font-size: 22px;
+  }
+
+  .logo-text p {
+    font-size: 12px;
+  }
+
+  .features-list {
+    gap: 15px;
+    margin-top: 15px;
+    display: none;
+  }
+
+  .right-content {
+    padding: 25px 15px;
+    flex: 1;
+  }
+
+  .form-header h2 {
+    font-size: 20px;
+  }
+
+  .form-header p {
+    font-size: 12px;
+  }
+
+  .submit-btn {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container-main">
+
+  <!-- Left Side -->
+  <div class="left-content">
+    <div class="logo-section">
+      <div class="logo-icon">📚</div>
+      <div class="logo-text">
+        <h1>Study Planner</h1>
+        <p>Organize your studies, achieve your goals</p>
+      </div>
+    </div>
+
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-icon">✓</div>
+        <div class="feature-text">
+          <h3>Track Your Progress</h3>
+          <p>Monitor your study hours and achievements</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-text">
+          <h3>Set Your Goals</h3>
+          <p>Plan and organize your study schedule</p>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <div class="feature-text">
+          <h3>Get Analytics</h3>
+          <p>Analyze your learning patterns</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side - Forms -->
+  <div class="right-content">
+    <div class="form-container">
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm">
+        <div class="form-header">
+          <h2>Welcome Back</h2>
+          <p>Sign in to your account</p>
+        </div>
+
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+          <span class="password-toggle" onclick="togglePassword('loginPassword', this)">👁️</span>
+        </div>
+
+        <div class="form-options">
+          <div class="remember-me">
+            <input type="checkbox" id="rememberMe">
+            <label for="rememberMe" style="margin: 0; cursor: pointer;">Remember me</label>
+          </div>
+          <a href="#" onclick="showForgot()">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="submit-btn">Sign In</button>
+
+        <div class="form-footer">
+          <p>New user? <a onclick="showSignup()">Create account</a></p>
+        </div>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signupForm" class="hidden">
+        <div class="form-header">
+          <h2>Create Account</h2>
+          <p>Start your learning journey</p>
+        </div>
+
+        <div class="form-group">
+          <label for="signupName">Full Name</label>
+          <input type="text" id="signupName" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="signupEmail">Email Address</label>
+          <input type="email" id="signupEmail" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="••••••••" required>
+          <span class="password-toggle" onclick="togglePassword('signupPassword', this)">👁️</span>
+        </div>
+
+        <button type="submit" class="submit-btn">Create Account</button>
+
+        <div class="form-footer">
+          <p>Already have an account? <a onclick="showLogin()">Sign in</a></p>
+        </div>
+      </form>
+
+      <!-- FORGOT PASSWORD FORM -->
+      <form id="forgotForm" class="hidden">
+        <div class="form-header">
+          <h2>Reset Password</h2>
+          <p>Recover access to your account</p>
+        </div>
+
+        <div class="form-group">
+          <label for="forgotEmail">Email Address</label>
+          <input type="email" id="forgotEmail" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" id="newPassword" placeholder="••••••••" required>
+          <span class="password-toggle" onclick="togglePassword('newPassword', this)">👁️</span>
+        </div>
+
+        <button type="submit" class="submit-btn">Reset Password</button>
+
+        <div class="form-footer">
+          <p><a onclick="showLogin()">Back to Sign In</a></p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+/* Password Toggle */
+function togglePassword(inputId, toggleElement) {
+  const input = document.getElementById(inputId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    toggleElement.textContent = '👁️‍🗨️';
+  } else {
+    input.type = 'password';
+    toggleElement.textContent = '👁️';
+  }
+}
+
+/* Change forms */
+function showSignup() {
+  document.getElementById("loginForm").classList.add("hidden");
+  document.getElementById("signupForm").classList.remove("hidden");
+  document.getElementById("forgotForm").classList.add("hidden");
+}
+
+function showLogin() {
+  document.getElementById("loginForm").classList.remove("hidden");
+  document.getElementById("signupForm").classList.add("hidden");
+  document.getElementById("forgotForm").classList.add("hidden");
+}
+
+function showForgot() {
+  document.getElementById("loginForm").classList.add("hidden");
+  document.getElementById("signupForm").classList.add("hidden");
+  document.getElementById("forgotForm").classList.remove("hidden");
+}
+
+/* Signup */
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let name = document.getElementById("signupName").value;
+  let email = document.getElementById("signupEmail").value;
+  let password = document.getElementById("signupPassword").value;
+
+  localStorage.setItem(email, password);
+
+  const userInfo = {
+    name: name,
+    email: email,
+    createdAt: new Date().toISOString()
+  };
+  localStorage.setItem(email + '_info', JSON.stringify(userInfo));
+
+  alert("Account Created Successfully!");
+  showLogin();
+});
+
+/* Login */
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let email = document.getElementById("loginEmail").value;
+  let password = document.getElementById("loginPassword").value;
+
+  let stored = localStorage.getItem(email);
+
+  if(stored === password) {
+    let userInfo = localStorage.getItem(email + '_info');
+    let currentUser = {};
+
+    if(userInfo) {
+      const parsedInfo = JSON.parse(userInfo);
+      currentUser = {
+        name: parsedInfo.name,
+        email: email
+      };
+    } else {
+      currentUser = {
+        name: email.split('@')[0],
+        email: email
+      };
+    }
+
+    localStorage.setItem('studyPlannerCurrentUser', JSON.stringify(currentUser));
+    alert("Login Successful!");
+    window.location.href = 'index.html';
+  } else {
+    alert("Invalid Email or Password");
+  }
+});
+
+/* Reset password */
+document.getElementById("forgotForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let email = document.getElementById("forgotEmail").value;
+  let newPassword = document.getElementById("newPassword").value;
+
+  if(localStorage.getItem(email)) {
+    localStorage.setItem(email, newPassword);
+    alert("Password Updated Successfully!");
+    showLogin();
+  } else {
+    alert("Account not found");
+  }
+});
+
+</script>
+
+</body>
+</html>

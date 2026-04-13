@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+    <!-- Header/Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <span class="badge bg-primary me-2">📚</span>Study Planner
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">📊 Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="tasks.html">✓ Tasks</a></li>
+                    <li class="nav-item"><a class="nav-link" href="subjects.html">📖 Subjects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calender.html">📅 Calendar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="exams.html">📝 Exams</a></li>
+                    <li class="nav-item"><a class="nav-link" href="analytics.html">📈 Analytics</a></li>
+                    <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+                    <li class="nav-item ms-3">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="userDropdown">
+                                👤 <span id="userName">User</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="settings.html">My Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="logoutUser()">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <button class="btn btn-danger btn-sm" onclick="logoutUser()" title="Logout and return to signup">
+                            🚪 Logout
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <!-- Hero Section: Today's Progress & Streak -->
+            <div class="row mb-5 g-4">
+                <!-- Today's Study Progress -->
+                <div class="col-lg-8">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <div>
+                                    <h2 class="card-title mb-0">Today's Study Progress</h2>
+                                    <p class="text-muted small">Keep your streak going.</p>
+                                </div>
+                                <span style="font-size: 2rem;">📚</span>
+                            </div>
+
+                            <div class="d-flex justify-content-center align-items-center mb-4">
+                                <div class="position-relative" style="width: 140px; height: 140px;">
+                                    <svg class="position-absolute" style="width: 100%; height: 100%; transform: rotate(-90deg);" viewBox="0 0 120 120">
+                                        <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+                                        <circle cx="60" cy="60" r="50" fill="none" stroke="#0d6efd" stroke-width="8"
+                                                stroke-dasharray="314.159" stroke-dashoffset="94.248" style="transition: stroke-dashoffset 0.5s;"/>
+                                    </svg>
+                                    <div class="position-absolute top-50 start-50 translate-middle text-center">
+                                        <div style="font-size: 2rem; font-weight: bold; color:white">5.2</div>
+                                        <div class="text-muted small">of 8h</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-muted text-center">3 hours 45 minutes to go</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Streak -->
+                <div class="col-lg-4">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body text-center">
+                            <div style="font-size: 3rem;" class="mb-3">🔥</div>
+                            <div class="mb-3">
+                                <div style="font-size: 2.5rem; font-weight: bold;" class="text-primary">12</div>
+                                <p class="text-muted mb-0">day streak</p>
+                            </div>
+                            <hr class="bg-secondary">
+                            <p class="text-muted small mb-1">Best streak</p>
+                            <div style="font-size: 1.5rem; font-weight: bold;">18 days</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Cards Grid -->
+            <div class="row mb-5 g-4">
+                <!-- Study Hours Tracker -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card bg-dark border-secondary h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="card-title mb-0">Study Hours</h5>
+                                <span>⏱️</span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-2 small">
+                                    <span>Today</span>
+                                    <span class="text-primary fw-bold">5.2h / 8h</span>
+                                </div>
+                                <div class="progress" role="progressbar" style="height: 8px;">
+                                    <div class="progress-bar" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between mb-2 small">
+                                    <span class="text-muted">Weekly avg</span>
+                                    <span class="text-muted">6.3h</span>
+                                </div>
+                                <div class="progress" role="progressbar" style="height: 8px;">
+                                    <div class="progress-bar" style="width: 78%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Completed -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card bg-dark border-secondary h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="card-title mb-0">Tasks Today</h5>
+                                <span>✓</span>
+                            </div>
+                            <div class="text-center mb-4">
+                                <div style="font-size: 2rem; font-weight: bold;" class="text-primary">8 / 12</div>
+                                <p class="text-muted mb-0">67% complete</p>
+                            </div>
+                            <div class="small">
+                                <p class="text-muted mb-2">Recent:</p>
+                                <p class="mb-1">✓ Complete math chapter 4</p>
+                                <p class="mb-1">✓ Review calculus notes</p>
+                                <p>✓ Biology homework</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Exams -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="card bg-dark border-secondary h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h5 class="card-title mb-0">Upcoming Exams</h5>
+                                <span>📝</span>
+                            </div>
+                            <div class="mb-3 pb-3 border-bottom border-secondary">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold">Calculus Midterm</span>
+                                    <span class="badge bg-danger">in 5 days</span>
+                                </div>
+                                <small class="text-muted">Math</small>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span class="fw-semibold">Biology Quiz</span>
+                                    <span class="badge bg-primary">in 12 days</span>
+                                </div>
+                                <small class="text-muted">Biology</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+         
+
+            <!-- Pomodoro Timer & Weekly Overview -->
+            <div class="row mb-5 g-4">
+                <!-- Pomodoro Timer -->
+                <div class="col-lg-6">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-4">Pomodoro Timer</h5>
+                            <p class="text-muted small mb-3">Focus Session</p>
+
+                            <!-- Circular Timer -->
+                            <div class="d-flex justify-content-center mb-4">
+                                <div class="position-relative" style="width: 180px; height: 180px; display: flex; align-items: center; justify-content: center;">
+                                    <svg style="width: 100%; height: 100%; transform: rotate(-90deg); position: absolute;" viewBox="0 0 200 200">
+                                        <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+                                        <circle cx="100" cy="100" r="90" fill="none" stroke="#0d6efd" stroke-width="8"
+                                                stroke-dasharray="565" stroke-dashoffset="0" style="transition: stroke-dashoffset 0.3s;"/>
+                                    </svg>
+                                    <div class="position-absolute text-center w-100">
+                                        <div id="timer-display" style="font-size: 2.5rem; font-weight: bold; color: white;">25:00</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 d-sm-flex justify-content-center mb-3">
+                                <button class="btn btn-primary btn-sm" id="timer-start">Start</button>
+                                <button class="btn btn-secondary btn-sm" id="timer-reset">Reset</button>
+                            </div>
+                            <small class="text-muted">Sessions today: 3</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Study Hours -->
+                <div class="col-lg-6">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Weekly Study Hours</h5>
+                            <div class="space-y-3">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span>Monday</span>
+                                        <span class="fw-bold">7.2h</span>
+                                    </div>
+                                    <div class="progress" role="progressbar" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span>Tuesday</span>
+                                        <span class="fw-bold">6.8h</span>
+                                    </div>
+                                    <div class="progress" role="progressbar" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span>Wednesday</span>
+                                        <span class="fw-bold">8.1h</span>
+                                    </div>
+                                    <div class="progress" role="progressbar" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span>Thursday</span>
+                                        <span class="fw-bold">5.5h</span>
+                                    </div>
+                                    <div class="progress" role="progressbar" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span>Friday</span>
+                                        <span class="fw-bold">6.9h</span>
+                                    </div>
+                                    <div class="progress" role="progressbar" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 81%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span>Saturday</span>
+                                        <span class="fw-bold">7.3h</span>
+                                    </div>
+                                    <div class="progress" role="progressbar" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 86%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span>Sunday</span>
+                                        <span class="fw-bold">6.2h</span>
+                                    </div>
+                                    <div class="progress" role="progressbar" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 73%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Progress -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="card bg-dark border-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Subject Progress</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="text-center">
+                                        <div class="position-relative mx-auto mb-3" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                                            <svg style="width: 100%; height: 100%; transform: rotate(-90deg); position: absolute;" viewBox="0 0 100 100">
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="#0d6efd" stroke-width="6"
+                                                        stroke-dasharray="251" stroke-dashoffset="55" style="transition: stroke-dashoffset 0.5s;"/>
+                                            </svg>
+                                            <div class="position-absolute text-center">
+                                                <span style="font-weight: bold; font-size: 1.2rem;">78%</span>
+                                            </div>
+                                        </div>
+                                        <p class="fw-semibold mb-0">Math</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="text-center">
+                                        <div class="position-relative mx-auto mb-3" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                                            <svg style="width: 100%; height: 100%; transform: rotate(-90deg); position: absolute;" viewBox="0 0 100 100">
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="#0d6efd" stroke-width="6"
+                                                        stroke-dasharray="251" stroke-dashoffset="88" style="transition: stroke-dashoffset 0.5s;"/>
+                                            </svg>
+                                            <div class="position-absolute text-center">
+                                                <span style="font-weight: bold; font-size: 1.2rem;">65%</span>
+                                            </div>
+                                        </div>
+                                        <p class="fw-semibold mb-0">Biology</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="text-center">
+                                        <div class="position-relative mx-auto mb-3" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                                            <svg style="width: 100%; height: 100%; transform: rotate(-90deg); position: absolute;" viewBox="0 0 100 100">
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="#0d6efd" stroke-width="6"
+                                                        stroke-dasharray="251" stroke-dashoffset="45" style="transition: stroke-dashoffset 0.5s;"/>
+                                            </svg>
+                                            <div class="position-absolute text-center">
+                                                <span style="font-weight: bold; font-size: 1.2rem;">82%</span>
+                                            </div>
+                                        </div>
+                                        <p class="fw-semibold mb-0">Chemistry</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="text-center">
+                                        <div class="position-relative mx-auto mb-3" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                                            <svg style="width: 100%; height: 100%; transform: rotate(-90deg); position: absolute;" viewBox="0 0 100 100">
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+                                                <circle cx="50" cy="50" r="40" fill="none" stroke="#0d6efd" stroke-width="6"
+                                                        stroke-dasharray="251" stroke-dashoffset="73" style="transition: stroke-dashoffset 0.5s;"/>
+                                            </svg>
+                                            <div class="position-absolute text-center">
+                                                <span style="font-weight: bold; font-size: 1.2rem;">71%</span>
+                                            </div>
+                                        </div>
+                                        <p class="fw-semibold mb-0">English</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Footer Column 1 - About -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h5 class="footer-title">📚 Study Planner</h5>
+                            <p class="footer-desc">Master your productivity with intelligent study planning and tracking tools.</p>
+                            <div class="footer-stars">
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                                <span class="star">⭐</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Column 2 - Quick Links -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h5 class="footer-title">Quick Links</h5>
+                            <ul class="footer-links">
+                                <li><a href="index.html">📊 Dashboard</a></li>
+                                <li><a href="tasks.html">✓ Tasks</a></li>
+                                <li><a href="exams.html">📝 Exams</a></li>
+                                <li><a href="analytics.html">📈 Analytics</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Footer Column 3 - Features -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h5 class="footer-title">Features</h5>
+                            <ul class="footer-links">
+                                <li><a href="settings.html">⚙️ Settings</a></li>
+                                <li><a href="subjects.html">📖 Subjects</a></li>
+                                <li><a href="calender.html">📅 Calendar</a></li>
+                                <li><a href="#" onclick="logoutUser()">🚪 Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Footer Column 4 - Stats -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h5 class="footer-title">Keep Learning</h5>
+                            <p class="footer-desc">Every day brings new opportunities to grow and improve.</p>
+                            <div class="footer-badges">
+                                <span class="badge-item">🎯 Goal-Oriented</span>
+                                <span class="badge-item">📊 Data-Driven</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <div class="footer-divider"></div>
+                    <div class="row align-items-center">
+                        <div class="col-md-6 text-center text-md-start">
+                            <p class="footer-credit">
+                                <span class="designer-text">Design BY</span> 
+                                <span class="heart-beat">❤</span> 
+                                <span class="designer-name">karunendra</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <p class="footer-year">© <span id="current-year">2026</span> Study Planner. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animated Background Elements -->
+        <div class="footer-bg-animation">
+            <div class="float-element">✨</div>
+            <div class="float-element">📚</div>
+            <div class="float-element">💡</div>
+            <div class="float-element">🎯</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            window.app = new StudyPlannerApp();
+        });
+
+        /**
+         * Logout user
+         */
+        function logoutUser() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('studyPlannerCurrentUser');
+                localStorage.removeItem('rememberMeEmail');
+                window.location.href = 'singup.html';
+            }
+        }
+    </script>
+</body>
+</html>
